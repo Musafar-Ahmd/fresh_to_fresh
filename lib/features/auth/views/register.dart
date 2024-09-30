@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_to_fresh/features/auth/views/register.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
+  String _confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Login',
+                'Register',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
@@ -54,26 +54,41 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 onSaved: (value) => _password = value!,
               ),
+              SizedBox(height: 10),
+              TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please confirm your password';
+                  }
+                  if (value != _password) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
+                onSaved: (value) => _confirmPassword = value!,
+              ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    // Login logic here
+                    // Registration logic here
                     print('Email: $_email, Password: $_password');
                   }
                 },
-                child: Text('Login'),
+                child: Text('Register'),
               ),
               SizedBox(height: 10),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegistrationScreen()),
-                  );
+                  Navigator.pop(context);
                 },
-                child: Text('Don\'t have an account? Register'),
+                child: Text('Already have an account? Login'),
               ),
             ],
           ),
