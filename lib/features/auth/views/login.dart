@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_to_fresh/features/auth/views/register.dart';
+import 'package:fresh_to_fresh/features/bottom_bar/view/bottom_bar_view.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -60,7 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     // Login logic here
-                    print('Email: $_email, Password: $_password');
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BottomBarView()),
+                  );
                   }
                 },
                 child: Text('Login'),
